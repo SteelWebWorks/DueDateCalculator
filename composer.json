@@ -1,0 +1,17 @@
+{
+    "name": "zsigmondgbalazs/duedatecalculator",
+    "description": "Due Date Calculator",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
