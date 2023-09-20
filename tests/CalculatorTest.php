@@ -12,11 +12,11 @@ class CalculatorTest extends TestCase
         $dueDate = new Calculator();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("The given date is not valid. Please use the following format: 2023-01-01 12:12 or 2023-01-01T12:12:12");
+        $this->expectExceptionMessage("The given date is not valid, or outside of working ours. Valid formats: 2023-01-01 12:12, 2023/01/01 12:12, 2023-01-01T12:12, 2023/01/01T12:12");
         $dueDate->CalculateDueTime('20230101', 16);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("The given date is not valid. Please use the following format: 2023-01-01 12:12 or 2023-01-01T12:12:12");
+        $this->expectExceptionMessage("The given date is not valid, or outside of working ours. Valid formats: 2023-01-01 12:12, 2023/01/01 12:12, 2023-01-01T12:12, 2023/01/01T12:12");
         $dueDate->CalculateDueTime('2023-09-18121212', 16);
     }
 
@@ -25,7 +25,7 @@ class CalculatorTest extends TestCase
         $dueDate = new Calculator();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("The given tournaround time is not valid. It must be a number between 0 and 999");
+        $this->expectExceptionMessage("The given tournaround time is not valid. It must be a number between 1 and 999");
         $dueDate->CalculateDueTime('2023-09-18T12:12', 'valami');
     }
 

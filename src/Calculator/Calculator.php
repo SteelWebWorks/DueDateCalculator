@@ -2,7 +2,6 @@
 
 namespace Calculator;
 
-use DateInterval;
 use DateTime;
 use InvalidArgumentException;
 
@@ -11,16 +10,18 @@ class Calculator
     private $workingHoursStart = 9;
     private $workingHoursEnd = 17;
 
+    private $workingDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
     public function CalculateDueTime($submitDateTime, $turnaroundTime)
     {
         // Validate the submitted date
         if (!$this->validateDate($submitDateTime)) {
-            throw new InvalidArgumentException("The given date is not valid. Please use the following format: 2023-01-01 12:12 or 2023-01-01T12:12:12");
+            throw new InvalidArgumentException("The given date is not valid, or outside of working ours. Valid formats: 2023-01-01 12:12, 2023/01/01 12:12, 2023-01-01T12:12, 2023/01/01T12:12");
         }
 
         //Validate the tournaround time
         if (!$this->validateTime($turnaroundTime)) {
-            throw new InvalidArgumentException("The given tournaround time is not valid. It must be a number between 0 and 999");
+            throw new InvalidArgumentException("The given tournaround time is not valid. It must be a number between 1 and 999");
         }
 
         // Parse the submit date/time
@@ -33,7 +34,7 @@ class Calculator
         $turnaroundTime = $turnaroundTime - ($days * 8);
 
         if ($weeks > 0) {
-            $submitDate->add(new DateInterval('P' . $weeks . 'W'));
+            $submitDate->modify("+{$weeks} weeks");
         }
 
         while ($days > 0) {
@@ -44,7 +45,7 @@ class Calculator
                     $days--;
                 }
             }
-            $submitDate->add(new DateInterval('P1D'));
+            $submitDate->modify('+1 day');
         }
 
         // Return the resolved date/time
@@ -53,10 +54,10 @@ class Calculator
 
     public function validateDate($value)
     {
-        if (preg_match('/^20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T| )(09|(1[0-7])):([0-5][0-9])$/', $value)) {
-            $date = date_create($value);
-            $day = $date->format('N');
-            if ($date->format('N') <= 5) {
+        if (preg_match('/^20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T| )(([0-1][0-9]|(2[0-3]))):([0-5][0-9])$/', $value)) {
+            $date = new DateTime($value);
+            if (in_array($date->format('l'), $this->workingDays)
+                && ($date->format('G') >= $this->workingHoursStart && $date->format('G') < $this->workingHoursEnd)) {
                 return $value;
             }
         }
@@ -65,7 +66,7 @@ class Calculator
 
     public function validateTime($value)
     {
-        if (preg_match('/^[0-9]{1,3}$/', $value) && (int) $value > 0) {
+        if (preg_match('/^[1-9]{1,3}$/', $value)) {
             return $value;
         }
         return false;
