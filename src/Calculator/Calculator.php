@@ -47,7 +47,16 @@ class Calculator
             }
             $submitDate->modify('+1 day');
         }
-
+        while ($turnaroundTime > 0) {
+            $submitDate->modify('+1 hour');
+            $currentDay = $submitDate->format('N');
+            if ($currentDay <= 5) {
+                $currentHour = $submitDate->format('G');
+                if ($currentHour >= $this->workingHoursStart && $currentHour < $this->workingHoursEnd) {
+                    $turnaroundTime--;
+                }
+            }
+        }
         // Return the resolved date/time
         return $submitDate->format('Y-m-d H:i');
     }

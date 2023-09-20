@@ -33,6 +33,12 @@ class CalculatorTest extends TestCase
     {
         $dueTime = new Calculator();
 
+        // Submit date is monday and the turn around time is 3 hour
+        $this->assertEquals('2023-09-18 15:12', $dueTime->CalculateDueTime('2023-09-18 12:12', '3'));
+
+        // Submit date is monday and the turn around time is 13 hour
+        $this->assertEquals('2023-09-20 09:12', $dueTime->CalculateDueTime('2023-09-18 12:12', '13'));
+
         // Submit date is monday and the turn around time is 16 (2 days)
         $this->assertEquals('2023-09-20 12:12', $dueTime->CalculateDueTime('2023-09-18 12:12', '16'));
 
