@@ -33,11 +33,19 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueTimeShortTwho()
+    public function testCalculateDueTimeShortTwo()
     {
         $dueTime = new Calculator();
 
         $this->assertEquals('2024-01-15 15:12', $dueTime->CalculateDueTime('2024-01-15 12:12', 3));
+
+    }
+
+    public function testCalculateDueTimeShortThree()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-15 11:12', $dueTime->CalculateDueTime('2024-01-12 16:12', 3));
 
     }
 
@@ -57,6 +65,14 @@ class CalculatorTest extends TestCase
 
     }
 
+    public function testCalculateDueMediumThree()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-22 17:00', $dueTime->CalculateDueTime('2024-01-22 9:00', 8));
+
+    }
+
     public function testCalculateLongOne()
     {
         $dueTime = new Calculator();
@@ -70,6 +86,34 @@ class CalculatorTest extends TestCase
         $dueTime = new Calculator();
 
         $this->assertEquals('2024-01-29 12:13', $dueTime->CalculateDueTime('2024-01-15 10:13', 82));
+    }
+
+    public function testCalculateSkipWeekend()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-15 10:13', $dueTime->CalculateDueTime('2024-01-12 10:13', 8));
+    }
+
+    public function testDateFormatOne()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-16 09:12', $dueTime->CalculateDueTime('2024-01-15T12:12', 5));
+    }
+
+    public function testDateTimeFormatTwo()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-16 09:12', $dueTime->CalculateDueTime('2024/01/15T12:12', 5));
+    }
+
+    public function testDateTimeFormatThree()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-16 09:12', $dueTime->CalculateDueTime('2024/01/15 12:12', 5));
     }
 
 }
