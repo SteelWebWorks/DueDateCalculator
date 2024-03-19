@@ -41,6 +41,7 @@ class ComposerStaticInit99308b33a21816d5edd41a892b0d6757
     public static $classMap = array (
         'Calculator\\Calculator' => __DIR__ . '/../..' . '/src/Calculator/Calculator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Constants\\CalculatorConstants' => __DIR__ . '/../..' . '/src/Constants/Constants.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
