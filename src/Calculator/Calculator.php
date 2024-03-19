@@ -29,8 +29,9 @@ class Calculator
             $timeStamp += 3600;
 
             $hour = $this->numHour($timeStamp);
+            $min = (int) date('i', $timeStamp);
 
-            if ($hour >= $this->dayEnd) {
+            if ($hour > $this->dayEnd || ($hour == $this->dayEnd && ($min > 0 || $turnaroundTime > 0))) {
                 $timeStamp += ($this->dayStart + (24 - $hour)) * 3600;
             } elseif ($hour < $this->dayStart) {
                 $timeStamp = ($this->dayStart - $hour) * 3600;

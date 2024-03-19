@@ -25,7 +25,7 @@ class CalculatorTest extends TestCase
         $dueDate->CalculateDueTime('2024-01-18T12:12', 'valami');
     }
 
-    public function testCalculateDueTimeShortOne()
+    public function testCalculateDueTime()
     {
         $dueTime = new Calculator();
 
@@ -33,7 +33,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueTimeShortTwo()
+    public function testCalculateDueTimeShortTime()
     {
         $dueTime = new Calculator();
 
@@ -41,7 +41,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueTimeShortThree()
+    public function testCalculateDueTimeShortTimeWeekend()
     {
         $dueTime = new Calculator();
 
@@ -49,7 +49,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueMediumOne()
+    public function testCalculateDueMedium()
     {
         $dueTime = new Calculator();
 
@@ -57,7 +57,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueMediumTwo()
+    public function testCalculateDueEightHours()
     {
         $dueTime = new Calculator();
 
@@ -65,7 +65,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateDueMediumThree()
+    public function testCalculateDueEightHoursAtStart()
     {
         $dueTime = new Calculator();
 
@@ -73,7 +73,15 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateLongOne()
+    public function testCalculateDueFullWorkTimeAtFriday()
+    {
+        $dueTime = new Calculator();
+
+        $this->assertEquals('2024-01-19 17:00', $dueTime->CalculateDueTime('2024-01-19 9:00', 8));
+
+    }
+
+    public function testCalculateLong()
     {
         $dueTime = new Calculator();
 
@@ -81,7 +89,7 @@ class CalculatorTest extends TestCase
 
     }
 
-    public function testCalculateLongTwo()
+    public function testCalculateWeryLong()
     {
         $dueTime = new Calculator();
 
